@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scr/Player.gd" type="Script" id=3]
+[ext_resource path="res://Scn/HUD.tscn" type="PackedScene" id=5]
+
+[sub_resource type="SphereShape" id=1]
+radius = 2.52814
+
+[sub_resource type="CapsuleMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 1, 0.160784, 0.160784, 1 )
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 1.01047
+height = 2.50592
+
+[node name="Node2D" type="KinematicBody"]
+script = ExtResource( 3 )
+
+[node name="Detector" type="Area" parent="."]
+
+[node name="CollisionShape2" type="CollisionShape" parent="Detector"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1.5, 0, 1, -6.55671e-08, 0, 0, 0 )
+layers = 513
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="Light2D" type="SpotLight" parent="."]
+transform = Transform( -4.37114e-08, 0.258819, -0.965926, 0, 0.965926, 0.258819, 1, 1.13133e-08, -4.2222e-08, 0, -0.00179863, 0 )
+shadow_enabled = true
+spot_range = 33.9609
+spot_angle = 30.0
+spot_angle_attenuation = 0.75
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="HUD" parent="GUI" instance=ExtResource( 5 )]
+
+[node name="Shottimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 35, 15 )
+fov = 45.0
+
+[node name="NightLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.77504, 0 )
+layers = 0
+light_energy = 0.05
+light_cull_mask = 4294966784
+
+[connection signal="area_entered" from="Detector" to="." method="_on_Detector_area_entered"]
+[connection signal="area_exited" from="Detector" to="." method="_on_Detector_area_exited"]

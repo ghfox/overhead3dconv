@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scn/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scn/Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scn/BlinkingLight.tscn" type="PackedScene" id=5]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="Skin" id=2]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.519033, 0.509936, 0.0608504 )
+
+[sub_resource type="Environment" id=4]
+ambient_light_color = Color( 0.282353, 0.282353, 0.282353, 1 )
+
+[node name="Room" type="Spatial"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.36687, 0 )
+
+[node name="Floor" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+transform = Transform( 100, 0, 0, 0, -4.37114e-06, 1, 0, -100, -4.37114e-08, 0, 1, 0 )
+mesh = SubResource( 1 )
+skin = SubResource( 2 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Floor/MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor/MeshInstance/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Wall" type="Spatial" parent="."]
+
+[node name="Wall" parent="Wall" instance=ExtResource( 2 )]
+transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 1, 0, 3.82067, 19.507 )
+
+[node name="Wall2" parent="Wall" instance=ExtResource( 2 )]
+transform = Transform( 9.32935, 0, -0.360046, 0, 4, 0, 3.60046, 0, 0.932935, -18.8796, 4.82347, 15.8929 )
+
+[node name="Wall3" parent="Wall" instance=ExtResource( 2 )]
+transform = Transform( 15, 0, 0, 0, 3, 0, 0, 0, 1, -13.8168, 3.97201, -21.5072 )
+
+[node name="Wall4" parent="Wall" instance=ExtResource( 2 )]
+transform = Transform( 1.50097, 0, 0.99718, 0, 5, 0, -19.9436, 0, 0.0750483, 16.63, 5.69747, 0 )
+
+[node name="Wall5" parent="Wall" instance=ExtResource( 2 )]
+transform = Transform( -9.20218, 0, 0.391406, 0, 5, 0, -3.91406, 0, -0.920218, -23.4915, 2.95098, 6.48687 )
+
+[node name="Lights" type="Spatial" parent="."]
+
+[node name="BlinkingLight2" parent="Lights" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.8085, 7.64246, 12.2516 )
+omni_range = 8.56419
+
+[node name="BlinkingLight" parent="Lights" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5055, 5.07796, 0 )
+omni_range = 11.9539
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )

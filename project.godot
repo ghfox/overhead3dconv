@@ -1,0 +1,74 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Item",
+"class": "Ammo",
+"language": "GDScript",
+"path": "res://Classes/Ammo.gd"
+}, {
+"base": "Reference",
+"class": "Item",
+"language": "GDScript",
+"path": "res://Classes/Item.gd"
+}, {
+"base": "Area2D",
+"class": "ItemPickup",
+"language": "GDScript",
+"path": "res://Classes/ItemPickup.gd"
+}, {
+"base": "Item",
+"class": "Magazine",
+"language": "GDScript",
+"path": "res://Classes/Magazine.gd"
+}, {
+"base": "Reference",
+"class": "Nothing",
+"language": "GDScript",
+"path": "res://Classes/Nothing.gd"
+}, {
+"base": "Item",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://Classes/Weapon.gd"
+} ]
+_global_script_class_icons={
+"Ammo": "",
+"Item": "",
+"ItemPickup": "",
+"Magazine": "",
+"Nothing": "",
+"Weapon": ""
+}
+
+[application]
+
+config/name="3d overhead conversion"
+run/main_scene="res://Scn/Room.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Controller="*res://Singletons/Controller.gd"
+StatStore="*res://Singletons/StatStore.gd"
+ItemStore="*res://Singletons/ItemStore.gd"
+AudioManager="*res://Singletons/AudioManager.gd"
+Inventory="*res://Singletons/Inventory.gd"
+
+[display]
+
+window/size/width=1536
+window/size/height=900
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
