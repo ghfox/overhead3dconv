@@ -1,4 +1,4 @@
-extends Spatial
+extends Node2D
 
 var segs = 16.0
 var pointsArcOuter = PoolVector2Array()

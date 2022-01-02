@@ -1,6 +1,6 @@
 extends KinematicBody
 
-var SPEED = 850
+var SPEED = 10
 var DAM = 100
 var DIR = 360
 var LIFESPAN = 0.5
@@ -14,8 +14,14 @@ func _ready():
 		AudioManager.play(AudioManager.gunshot1)
 	else:
 		AudioManager.play(AudioManager.gunshot2)
+
+
 func _physics_process(delta):
-	move_and_collide(velocity * delta)
+	var event = move_and_collide(velocity * delta)
+	if(event != null):
+		if(event.collider.is_in_group("BulletStops")):
+			get_parent().remove_child(self)
+			call_deferred("free")
 
 func _on_Timer_timeout():
 	get_parent().remove_child(self)

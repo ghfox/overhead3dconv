@@ -16,7 +16,7 @@ var w = {
 		"cat" : "pistol",
 		s_cal : "9mm",
 		"cooldown" : 0.6,
-		s_dam : 50,
+		s_dam : 1,
 		"topoff" : false,
 		s_spd : 100
 	}
@@ -58,21 +58,21 @@ var b = {
 		"fmj" : {
 			s_dam : 1,
 			s_pen : 40,
-			s_spd : 1,
+			s_spd : 0,
 			s_sprite : "9mmfmjbox.png",
 			s_normal : "boxNormal.png"
 		}, 
 		"hp" : {
 			s_dam : 45,
 			s_pen : 20,
-			s_spd : 1,
+			s_spd : 0,
 			
 			s_normal : "boxNormal.png"
 		},
 		 "fluted" : {
 			s_dam : 35,
 			s_pen : 30,
-			s_spd : 50,
+			s_spd : 0,
 			
 			s_normal : "boxNormal.png"
 		}

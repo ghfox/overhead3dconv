@@ -16,7 +16,8 @@ uv1_scale = Vector3( 3, 2, 1 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 3 )
 
-[node name="StaticBody2D" type="StaticBody" parent="MeshInstance"]
+[node name="StaticBody2D" type="StaticBody" parent="MeshInstance" groups=["BulletStops"]]
+collision_layer = 1025
 
 [node name="CollisionShape2D" type="CollisionShape" parent="MeshInstance/StaticBody2D"]
 shape = SubResource( 2 )
