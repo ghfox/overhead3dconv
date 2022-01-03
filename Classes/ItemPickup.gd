@@ -26,7 +26,7 @@ func _ready():
 	shader = ShaderMaterial.new()
 	shader.set_shader(load("res://Shaders/3dOutline.gdshader"))
 	shader.set_shader_param("color", Color(0,1,0,1))
-	
+	mat.set_next_pass(shader)
 	mesh.set_surface_material(0,mat)
 	add_child(mesh)
 	
@@ -35,9 +35,7 @@ func _ready():
 	pass
 
 func turnOnOutline():
-	#shader.set_shader_param("enable", true)
-	mat.set_next_pass(shader)
+	shader.set_shader_param("enable", true)
 
 func turnOffOutline():
-	#shader.set_shader_param("enable", false)
-	mat.set_next_pass(null)
+	shader.set_shader_param("enable", false)
