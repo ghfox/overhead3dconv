@@ -12,7 +12,7 @@
 extents = Vector3( 0.519033, 0.509936, 0.0608504 )
 
 [sub_resource type="Environment" id=4]
-ambient_light_color = Color( 0.443137, 0.443137, 0.443137, 1 )
+ambient_light_color = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
 
 [node name="Room" type="Spatial"]
 

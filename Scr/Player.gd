@@ -25,10 +25,10 @@ func _ready():
 	new.translation.x = 0 
 	get_parent().call_deferred("add_child_below_node",self,new)
 	new = ItemPickup.new(Ammo.new("9mm","fmj",10))
-	new.translation.x = 1 
+	new.translation.x = 3 
 	get_parent().call_deferred("add_child_below_node",self,new)
 	new = ItemPickup.new(Magazine.new("9mm 10rd Mag"))
-	new.translation.x = -2 
+	new.translation.x = -3 
 	get_parent().call_deferred("add_child_below_node",self,new)
 
 func _process(_delta):

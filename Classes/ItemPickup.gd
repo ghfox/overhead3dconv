@@ -4,11 +4,12 @@ class_name ItemPickup
 
 var item
 var shader
+var mat
 
 func _init(newItem):
 	item = newItem
 	rotation.y = (randi() % 60) / 10.0
-	translation.y = 1.1
+	translation.y = 1.5
 	pass
 
 func _ready():
@@ -20,13 +21,12 @@ func _ready():
 	
 	var mesh = MeshInstance.new()
 	mesh.set_mesh(CubeMesh.new())
-	var mat = SpatialMaterial.new()
+	mat = SpatialMaterial.new()
 	mat.set_albedo(Color(0.5,0,0.25,1))
 	shader = ShaderMaterial.new()
 	shader.set_shader(load("res://Shaders/3dOutline.gdshader"))
 	shader.set_shader_param("color", Color(0,1,0,1))
-	shader.set_shader_param("enable", false)
-	mat.set_next_pass(shader)
+	
 	mesh.set_surface_material(0,mat)
 	add_child(mesh)
 	
@@ -35,8 +35,9 @@ func _ready():
 	pass
 
 func turnOnOutline():
-	shader.set_shader_param("enable", true)
+	#shader.set_shader_param("enable", true)
+	mat.set_next_pass(shader)
 
 func turnOffOutline():
-	shader.set_shader_param("enable", false)
-	pass
+	#shader.set_shader_param("enable", false)
+	mat.set_next_pass(null)
