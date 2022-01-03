@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Item.gd"
 }, {
-"base": "Area2D",
+"base": "Area",
 "class": "ItemPickup",
 "language": "GDScript",
 "path": "res://Classes/ItemPickup.gd"

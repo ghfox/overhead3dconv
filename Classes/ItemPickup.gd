@@ -1,31 +1,42 @@
-extends Area2D
+extends Area
 
 class_name ItemPickup
 
 var item
-var spr
+var shader
 
 func _init(newItem):
 	item = newItem
-	rotation = (randi() % 60) / 10.0
+	rotation.y = (randi() % 60) / 10.0
+	translation.y = 1.1
 	pass
 
 func _ready():
-	var collider = CollisionShape2D.new()
-	var circ = CircleShape2D.new()
+	var collider = CollisionShape.new()
+	var circ = SphereShape.new()
 	circ.set_radius(item.radius)
 	collider.set_shape(circ)
 	add_child(collider)
-	spr = Sprite.new()
-	spr.set_texture(load(item.sprite))
-	spr.normal_map = load(item.normal)
-	add_child(spr)
+	
+	var mesh = MeshInstance.new()
+	mesh.set_mesh(CubeMesh.new())
+	var mat = SpatialMaterial.new()
+	mat.set_albedo(Color(0.5,0,0.25,1))
+	shader = ShaderMaterial.new()
+	shader.set_shader(load("res://Shaders/3dOutline.gdshader"))
+	shader.set_shader_param("color", Color(0,1,0,1))
+	shader.set_shader_param("enable", false)
+	mat.set_next_pass(shader)
+	mesh.set_surface_material(0,mat)
+	add_child(mesh)
+	
 	set_name("%s%s" % ["ItemPickup-",item])
 	add_to_group("Grabables", false)
 	pass
 
 func turnOnOutline():
-	spr.set_material(load("res://Shaders/outline.tres"))
+	shader.set_shader_param("enable", true)
 
 func turnOffOutline():
-	spr.set_material(null)
+	shader.set_shader_param("enable", false)
+	pass

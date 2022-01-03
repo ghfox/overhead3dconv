@@ -12,17 +12,17 @@
 extents = Vector3( 0.519033, 0.509936, 0.0608504 )
 
 [sub_resource type="Environment" id=4]
-ambient_light_color = Color( 0.282353, 0.282353, 0.282353, 1 )
+ambient_light_color = Color( 0.443137, 0.443137, 0.443137, 1 )
 
 [node name="Room" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.36687, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28936, 0 )
 
 [node name="Floor" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Floor"]
-transform = Transform( 100, 0, 0, 0, -4.37114e-06, 1, 0, -100, -4.37114e-08, 0, 1, 0 )
+transform = Transform( 100, 0, 0, 0, -4.37114e-06, 1, 0, -100, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = null
@@ -35,16 +35,16 @@ shape = SubResource( 3 )
 [node name="Wall" type="Spatial" parent="."]
 
 [node name="Wall" parent="Wall" instance=ExtResource( 2 )]
-transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 1, 0, 3.82067, 19.507 )
+transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 1, 0, 2.93764, 19.507 )
 
 [node name="Wall2" parent="Wall" instance=ExtResource( 2 )]
-transform = Transform( 9.32935, 0, -0.360046, 0, 4, 0, 3.60046, 0, 0.932935, -18.8796, 4.82347, 15.8929 )
+transform = Transform( 9.32935, 0, -0.360046, 0, 4, 0, 3.60046, 0, 0.932935, -18.8796, 3.86466, 15.8929 )
 
 [node name="Wall3" parent="Wall" instance=ExtResource( 2 )]
-transform = Transform( 15, 0, 0, 0, 3, 0, 0, 0, 1, -13.8168, 3.97201, -21.5072 )
+transform = Transform( 15, 0, 0, 0, 3, 0, 0, 0, 1, -13.8168, 2.89827, -21.5072 )
 
 [node name="Wall4" parent="Wall" instance=ExtResource( 2 )]
-transform = Transform( 1.50097, 0, 0.99718, 0, 5, 0, -19.9436, 0, 0.0750483, 16.63, 5.69747, 0 )
+transform = Transform( 1.50097, 0, 0.99718, 0, 5, 0, -19.9436, 0, 0.0750483, 16.63, 5.01719, 0 )
 
 [node name="Wall5" parent="Wall" instance=ExtResource( 2 )]
 transform = Transform( -9.20218, 0, 0.391406, 0, 5, 0, -3.91406, 0, -0.920218, -23.4915, 2.95098, 6.48687 )

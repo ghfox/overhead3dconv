@@ -22,13 +22,13 @@ func _ready():
 	#ItemPick test garbage
 	var new 
 	new = ItemPickup.new(Ammo.new("9mm","fmj",10))
-	new.position.x = -20 
+	new.translation.x = 0 
 	get_parent().call_deferred("add_child_below_node",self,new)
 	new = ItemPickup.new(Ammo.new("9mm","fmj",10))
-	new.position.x = 40 
+	new.translation.x = 1 
 	get_parent().call_deferred("add_child_below_node",self,new)
 	new = ItemPickup.new(Magazine.new("9mm 10rd Mag"))
-	new.position.x = 5 
+	new.translation.x = -2 
 	get_parent().call_deferred("add_child_below_node",self,new)
 
 func _process(_delta):
@@ -126,7 +126,7 @@ func _on_Detector_area_exited(area):
 func updateGrabs():
 	var nearest = null
 	var dist = 999
-	var tdist
+	var tdist = 0
 	for n in get_tree().get_nodes_in_group("GrabNows"):
 		#tdist = position.distance_to(n.position)
 		if(dist > tdist):
