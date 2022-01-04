@@ -18,7 +18,7 @@ var w = {
 		"cooldown" : 0.6,
 		s_dam : 1,
 		"topoff" : false,
-		s_spd : 100
+		s_spd : 200
 	}
 }
 

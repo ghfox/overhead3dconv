@@ -107,7 +107,7 @@ func reload():
 			get_parent().get_node("LayerUnMod").add_child(reloader)
 
 func focusActive():
-	Engine.time_scale = 0.5
+	Engine.time_scale = 0.25
 	AudioManager.repitch()
 
 func focusInactive():

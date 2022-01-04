@@ -7,8 +7,7 @@ var LIFESPAN = 0.5
 var velocity = Vector3(0,0,0)
 
 func _ready():
-	rotation.y = DIR
-	velocity = Vector3(cos(DIR),0, -sin(DIR)) * SPEED
+	rotate_y(DIR)
 	$Timer.start(LIFESPAN)
 	if(randi() % 2 == 1):
 		AudioManager.play(AudioManager.gunshot1)
@@ -17,7 +16,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	var event = move_and_collide(velocity * delta)
+	var event = move_and_collide(transform.basis.x * SPEED * delta)
 	if(event != null):
 		if(event.collider.is_in_group("BulletStops")):
 			get_parent().remove_child(self)
