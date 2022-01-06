@@ -35,7 +35,7 @@ func drawCoord(color, segpointsarr):
 	draw_polygon(segpointsarr, colors)
 
 func _process(_delta):
-	position = Inventory.player.position
+	position = get_viewport().get_camera().unproject_position(Inventory.player.translation)
 	complete = int(((time - $Timer.time_left) / time) * segs)
 	if(segs != complete):
 		if(complete > segs/2):

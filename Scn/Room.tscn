@@ -12,7 +12,7 @@
 extents = Vector3( 0.519033, 0.509936, 0.0608504 )
 
 [sub_resource type="Environment" id=4]
-ambient_light_color = Color( 0.101961, 0.101961, 0.101961, 1 )
+ambient_light_color = Color( 0.109804, 0.109804, 0.109804, 1 )
 
 [node name="Room" type="Spatial"]
 
@@ -61,3 +61,5 @@ omni_range = 11.9539
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
+
+[node name="LayerUnMod" type="CanvasLayer" parent="."]

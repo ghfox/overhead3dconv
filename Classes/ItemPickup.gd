@@ -9,7 +9,7 @@ var mat
 func _init(newItem):
 	item = newItem
 	rotation.y = (randi() % 60) / 10.0
-	translation.y = 1.5
+	translation.y = 1.1
 	pass
 
 func _ready():
