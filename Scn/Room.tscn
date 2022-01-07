@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scn/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scn/Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scn/Creatures/Rat_small.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scn/BlinkingLight.tscn" type="PackedScene" id=5]
 
 [sub_resource type="QuadMesh" id=1]
@@ -63,3 +64,6 @@ omni_range = 11.9539
 environment = SubResource( 4 )
 
 [node name="LayerUnMod" type="CanvasLayer" parent="."]
+
+[node name="Rat_Small" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3548, 0, -10.8946 )

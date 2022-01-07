@@ -19,8 +19,14 @@ func _physics_process(delta):
 	var event = move_and_collide(transform.basis.x * SPEED * delta)
 	if(event != null):
 		if(event.collider.is_in_group("BulletStops")):
-			get_parent().remove_child(self)
-			call_deferred("free")
+			delme()
+		if(event.collider.is_in_group("Enemies")):
+			event.collider.hit(DAM)
+			delme()
+
+func delme():
+	get_parent().remove_child(self)
+	call_deferred("free")
 
 func _on_Timer_timeout():
 	get_parent().remove_child(self)
