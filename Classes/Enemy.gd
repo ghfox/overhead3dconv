@@ -40,7 +40,7 @@ func hit(dam):
 
 func death():
 	isAlive = false
-	rotate_x(90)
+	rotation.x = PI/2
 
 func wait():
 	speed = 0
@@ -85,3 +85,16 @@ func lunge():
 
 func withdraw():
 	pass
+
+func turnTowards(targetVec, delta):
+	var final = (targetVec - translation)
+	var temp = lerp_angle(rotation.y, atan2(-final.z,final.x), 1 * delta) - rotation.y
+	rotate_y(temp)
+
+func lerp_angle(from, to, weight):
+	return from + short_angle_dist(from, to) * weight
+
+func short_angle_dist(from, to):
+	var max_angle = PI * 2
+	var difference = fmod(to - from, max_angle)
+	return fmod(2 * difference, max_angle) - difference
