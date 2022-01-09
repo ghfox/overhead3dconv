@@ -21,3 +21,9 @@ material/0 = SubResource( 2 )
 [node name="CollisionRat" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.717103, 0.589, 0 )
 shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

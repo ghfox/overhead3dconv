@@ -11,6 +11,7 @@ var maxCircleDist = 5		#Maximum distance while circling
 var hunter = true			#Pursues fast
 var alertLoc = null			#Loc of most recent alert
 var spottedLoc = null		#Loc of spotted
+var randomLoc = null		#for meandering, fleeing, etc
 var proximity = 1			#Dist to trigger charged
 var wasCharged = false		#Charged flag
 var isAlive = true
@@ -45,6 +46,10 @@ func _physics_process(delta):
 		return
 	var space_state = get_world().direct_space_state
 	look(space_state)
+	if(targetLoc != null):
+		turnTowards(targetLoc,PI/2 * delta)
+		if(targetLoc.distance_to(translation) > 1):
+			move_and_collide(transform.basis.x * speed * delta)
 
 #must be invoked by physics thread
 #Adds the nearest ETarget that enemy has a 180 degree line of sight on
@@ -93,10 +98,8 @@ func wait():
 	speed = 0
 
 func meander(delta):
-	if(randi()%2==1):
-		speed = walk
-	else:
-		speed = 0 
+	speed = walk
+	targetLoc = randomLoc
 
 func patrol(delta):
 	pass
@@ -115,7 +118,6 @@ func flee(delta):
 func charge(delta):
 	speed = run
 	targetLoc = spottedLoc
-	turnTowards(targetLoc, PI/2 * delta)
 
 func maintain(delta):
 	speed = 0
