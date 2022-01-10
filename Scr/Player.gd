@@ -18,6 +18,7 @@ func _ready():
 	$Camera.set_as_toplevel(true)
 	HUD = get_node("GUI/HUD")
 	Inventory.player = self
+	move_lock_y = true
 	
 	#ItemPick test garbage
 	var new 

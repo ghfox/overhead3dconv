@@ -36,7 +36,7 @@ shape = SubResource( 3 )
 [node name="Wall" type="Spatial" parent="."]
 
 [node name="Wall" parent="Wall" instance=ExtResource( 2 )]
-transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 1, 0, 2.93764, 19.507 )
+transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 1, -1.77967, 2.93764, 19.507 )
 
 [node name="Wall2" parent="Wall" instance=ExtResource( 2 )]
 transform = Transform( 9.32935, 0, -0.360046, 0, 4, 0, 3.60046, 0, 0.932935, -18.8796, 3.86466, 15.8929 )
@@ -66,7 +66,7 @@ environment = SubResource( 4 )
 [node name="LayerUnMod" type="CanvasLayer" parent="."]
 
 [node name="Rat_Small" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3548, 0, -10.8946 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.355, 0, -10.895 )
 
 [node name="Rat_Small2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.65, 0, -10.8946 )

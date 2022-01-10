@@ -4,7 +4,7 @@ class_name Enemy
 
 var health = 10
 var walk = 1
-var run = 3
+var run = 5
 var circleToLunge = true	#Does circling close or maintain dist?
 var circleDist = 3			#Dist to circle at
 var maxCircleDist = 5		#Maximum distance while circling
@@ -30,13 +30,15 @@ var charged = funcref(self,'withdraw')
 func _process(delta):
 	if(!isAlive):
 		return
-	if isAlerted():
-		alerted.call_funcv([delta])
 	if isSpotted():
 		if isCharged(spottedLoc):
 			charged.call_funcv([delta])
 			return
 		spotted.call_funcv([delta])
+		return
+	if isAlerted():
+		alerted.call_funcv([delta])
+		return
 	if isIdle():
 		idle.call_funcv([delta])
 		return
@@ -67,6 +69,7 @@ func look(space_state):
 					closest = tempDist
 	if(current != null):
 		spottedLoc = current.translation
+		alertLoc = spottedLoc
 	else:
 		spottedLoc = null
 
@@ -97,43 +100,43 @@ func death():
 func wait():
 	speed = 0
 
-func meander(delta):
+func meander(_delta):
 	speed = walk
 	targetLoc = randomLoc
 
-func patrol(delta):
+func patrol(_delta):
 	pass
 
-func hunt(delta):
+func hunt(_delta):
 	speed = run
 	targetLoc = alertLoc
 
-func approach(delta):
+func approach(_delta):
 	speed = walk
 	targetLoc = alertLoc
 
-func flee(delta):
+func flee(_delta):
 	pass
 
-func charge(delta):
+func charge(_delta):
 	speed = run
 	targetLoc = spottedLoc
 
-func maintain(delta):
+func maintain(_delta):
 	speed = 0
 	targetLoc = spottedLoc
 
-func circle(delta):
+func circle(_delta):
 	flankRight = randi()%2==1
 	if(circleToLunge):
 		speed = run
 	else:
 		speed = walk
 
-func lunge(delta):
+func lunge(_delta):
 	pass
 
-func withdraw(delta):
+func withdraw(_delta):
 	pass
 
 func turnTowards(targetVec, delta):
