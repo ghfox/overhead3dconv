@@ -34,7 +34,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 shape = SubResource( 2 )
 
 [node name="Light2D" type="SpotLight" parent="."]
-transform = Transform( -4.37114e-08, 0.258819, -0.965926, 0, 0.965926, 0.258819, 1, 1.13133e-08, -4.2222e-08, 0, -0.00179863, 0 )
+transform = Transform( -4.37114e-08, 0.258819, -0.965926, 0, 0.965926, 0.258819, 1, 1.13133e-08, -4.2222e-08, 0, 0, 0 )
 shadow_enabled = true
 spot_range = 33.9609
 spot_angle = 30.0
@@ -54,7 +54,7 @@ transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 
 fov = 45.0
 
 [node name="NightLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.77504, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.75198, 0 )
 layers = 0
 light_energy = 0.05
 light_cull_mask = 4294966784

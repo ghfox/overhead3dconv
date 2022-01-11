@@ -2,28 +2,36 @@ extends KinematicBody
 
 class_name Enemy
 
+#Settings to override
 var health = 10
 var walk = 1
 var run = 5
 var circleToLunge = true	#Does circling close or maintain dist?
 var circleDist = 3			#Dist to circle at
 var maxCircleDist = 5		#Maximum distance while circling
-var hunter = true			#Pursues fast
+var proximity = 1			#Dist to trigger charged
+
+#location storage, we determine state with these
 var alertLoc = null			#Loc of most recent alert
 var spottedLoc = null		#Loc of spotted
 var randomLoc = null		#for meandering, fleeing, etc
-var proximity = 1			#Dist to trigger charged
+
+#state info used for actions
 var wasCharged = false		#Charged flag
 var isAlive = true
-
 var speed = 0
 var targetLoc = null
 var flankRight = true
 
+#current functions
 var idle = funcref(self,'meander')
-var alerted = funcref(self,'hunt')
+var alerted = funcref(self,'pursue')
 var spotted = funcref(self,'charge')
 var charged = funcref(self,'withdraw')
+
+var nav
+var path = []
+var path_idx = 0
 
 #Alerts, spots, and being attacked forces state options
 
@@ -37,6 +45,9 @@ func _process(delta):
 		spotted.call_funcv([delta])
 		return
 	if isAlerted():
+		if(path == null):
+			path_idx = 0
+			path = nav.get_simple_path(translation, alertLoc)
 		alerted.call_funcv([delta])
 		return
 	if isIdle():
@@ -70,11 +81,14 @@ func look(space_state):
 	if(current != null):
 		spottedLoc = current.translation
 		alertLoc = spottedLoc
+		path = null
 	else:
 		spottedLoc = null
 
 func pulse():
 	pass
+
+#STATE CHECKS
 
 func isIdle():
 	return (alertLoc == null && spottedLoc == null)
@@ -88,6 +102,8 @@ func isSpotted():
 func isCharged(loc):
 	return translation.distance_to(loc) < proximity
 
+#BASIC OPS
+
 func hit(dam):
 	health -= dam
 	if(health <= 0):
@@ -96,6 +112,8 @@ func hit(dam):
 func death():
 	isAlive = false
 	rotation.x = PI/2
+
+#IDLE
 
 func wait():
 	speed = 0
@@ -107,9 +125,16 @@ func meander(_delta):
 func patrol(_delta):
 	pass
 
-func hunt(_delta):
-	speed = run
-	targetLoc = alertLoc
+#ALERTED
+
+func pursue(_delta):
+	if(path_idx < path.size()-1):
+		if(translation.distance_to(path[path_idx]) < 5):
+			path_idx += 1
+		speed = run
+	else:
+		speed = walk
+	targetLoc = path[path_idx]
 
 func approach(_delta):
 	speed = walk
@@ -117,6 +142,8 @@ func approach(_delta):
 
 func flee(_delta):
 	pass
+
+#SPOTTED
 
 func charge(_delta):
 	speed = run
@@ -133,11 +160,15 @@ func circle(_delta):
 	else:
 		speed = walk
 
+#PROXIMITY / CHARGED
+
 func lunge(_delta):
 	pass
 
 func withdraw(_delta):
 	pass
+
+#UTILITIES
 
 func turnTowards(targetVec, delta):
 	var final = (targetVec - translation)
