@@ -4,8 +4,8 @@ class_name Enemy
 
 #Settings to override
 var health = 10
-var walk = 1
-var run = 5
+var walk = 2
+var run = 6
 var circleToLunge = true	#Does circling close or maintain dist?
 var circleDist = 3			#Dist to circle at
 var maxCircleDist = 5		#Maximum distance while circling
@@ -17,6 +17,7 @@ var spottedLoc = null		#Loc of spotted
 var randomLoc = null		#for meandering, fleeing, etc
 
 #state info used for actions
+var spottedChar = null		#presently visible and last seen character
 var wasCharged = false		#Charged flag
 var isAlive = true
 var speed = 0
@@ -32,6 +33,9 @@ var charged = funcref(self,'withdraw')
 var nav
 var path = []
 var path_idx = 0
+
+var sniff_path = []
+var sniff_path_idx = 0
 
 #Alerts, spots, and being attacked forces state options
 
@@ -79,15 +83,27 @@ func look(space_state):
 					current = dude
 					closest = tempDist
 	if(current != null):
+		spottedChar = current
 		spottedLoc = current.translation
 		alertLoc = spottedLoc
 		path = null
+		hasInSight(space_state)
 	else:
 		spottedLoc = null
+		hasLostSight(space_state)
 
 func pulse():
 	pass
 
+#Good for overriding
+func reachedEndOfAlertedPath(_delta):
+	pass
+
+func hasLostSight(space_state):
+	pass
+
+func hasInSight(space_state):
+	pass
 #STATE CHECKS
 
 func isIdle():
@@ -128,17 +144,34 @@ func patrol(_delta):
 #ALERTED
 
 func pursue(_delta):
-	if(path_idx < path.size()-1):
-		if(translation.distance_to(path[path_idx]) < 5):
-			path_idx += 1
-		speed = run
-	else:
-		speed = walk
-	targetLoc = path[path_idx]
+	if(path_idx < path.size() && translation.distance_to(path[path_idx]) < 5):
+		path_idx += 1
+		if(path_idx == path.size()):
+			targetLoc = alertLoc
+		else:
+			targetLoc = path[path_idx]
+	elif (translation.distance_to(alertLoc) < 5):
+			speed = 0
+			reachedEndOfAlertedPath(_delta)
+			return
+	speed = run
 
 func approach(_delta):
+	pursue(_delta)
 	speed = walk
-	targetLoc = alertLoc
+
+# this is basically approach, but the path must be set by the personality
+func sniff(_delta):
+	if(sniff_path_idx == 0):
+		targetLoc = sniff_path[0]
+	if(sniff_path_idx < sniff_path.size()-1 && translation.distance_to(sniff_path[sniff_path_idx]) < walk):
+		sniff_path_idx += 1
+		targetLoc = sniff_path[sniff_path_idx]
+	elif (translation.distance_to(sniff_path[sniff_path.size()-1]) < 5):
+			sniff_path_idx = sniff_path.size()
+			speed = 0
+			return
+	speed = walk
 
 func flee(_delta):
 	pass
