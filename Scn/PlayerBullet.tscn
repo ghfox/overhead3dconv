@@ -11,8 +11,8 @@ extents = Vector3( 0.447, 3, 1 )
 albedo_color = Color( 1, 0.494118, 0, 1 )
 
 [node name="PlayerBullet" type="KinematicBody"]
-collision_layer = 1024
-collision_mask = 1024
+collision_layer = 8
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape" parent="."]

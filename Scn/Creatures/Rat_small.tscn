@@ -10,7 +10,8 @@ albedo_color = Color( 0.356863, 0.223529, 0, 1 )
 extents = Vector3( 2.65234, 0.588962, 0.741644 )
 
 [node name="Rat_Small" type="KinematicBody" groups=["Enemies"]]
-collision_layer = 1025
+collision_layer = 4
+collision_mask = 30
 script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
