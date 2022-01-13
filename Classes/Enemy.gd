@@ -3,7 +3,7 @@ extends KinematicBody
 class_name Enemy
 
 #Settings to override
-var health = 10
+var health = 5
 var walk = 2
 var run = 6
 var circleToLunge = true	#Does circling close or maintain dist?
