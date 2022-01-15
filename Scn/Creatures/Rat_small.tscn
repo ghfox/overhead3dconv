@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Models/rat.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Scn/Creatures/Rat_small.gd" type="Script" id=2]
+[ext_resource path="res://Textures/fur0_normal.tga" type="Texture" id=3]
+[ext_resource path="res://Textures/fur0.tga" type="Texture" id=4]
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.356863, 0.223529, 0, 1 )
+albedo_texture = ExtResource( 4 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 3 )
+uv1_scale = Vector3( 1, 2, 1 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 2.65234, 0.588962, 0.741644 )

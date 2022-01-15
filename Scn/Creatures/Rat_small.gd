@@ -7,7 +7,7 @@ func _ready():
 	health = 4
 	walk = 3
 	run = 7
-	nav = get_node("../Navigation")
+	nav = get_node("../../Navigation")
 	pulse()
 	pass # Replace with function body.
 
