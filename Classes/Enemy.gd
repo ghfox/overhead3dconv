@@ -135,8 +135,11 @@ func wait():
 	speed = 0
 
 func meander(_delta):
-	speed = walk
 	targetLoc = randomLoc
+	if(translation.distance_to(targetLoc) > walk):
+		speed = walk
+	else:
+		speed = 0
 
 func patrol(_delta):
 	pass
