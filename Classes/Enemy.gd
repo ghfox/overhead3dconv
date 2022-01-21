@@ -9,7 +9,7 @@ var run = 6
 var circleToLunge = true	#Does circling close or maintain dist?
 var circleDist = 3			#Dist to circle at
 var maxCircleDist = 5		#Maximum distance while circling
-var proximity = 1			#Dist to trigger charged
+var proximity = 3			#Dist to trigger charged
 
 #location storage, we determine state with these
 var alertLoc = null			#Loc of most recent alert
@@ -23,6 +23,8 @@ var isAlive = true
 var speed = 0
 var targetLoc = null
 var flankRight = true
+var canAttack = true
+var blockSpotted = false
 
 #current functions
 var idle = funcref(self,'meander')
@@ -46,7 +48,8 @@ func _process(delta):
 		if isCharged(spottedLoc):
 			charged.call_funcv([delta])
 			return
-		spotted.call_funcv([delta])
+		if(!blockSpotted):
+			spotted.call_funcv([delta])
 		return
 	if isAlerted():
 		if(path == null):
@@ -116,7 +119,7 @@ func isSpotted():
 	return (spottedLoc != null)
 
 func isCharged(loc):
-	return translation.distance_to(loc) < proximity
+	return (translation.distance_to(loc) < proximity)
 
 #BASIC OPS
 
@@ -174,7 +177,7 @@ func sniff(_delta):
 			sniff_path_idx = sniff_path.size()
 			speed = 0
 			return
-	speed = walk
+	speed = walk*2
 
 func flee(_delta):
 	pass
@@ -199,10 +202,14 @@ func circle(_delta):
 #PROXIMITY / CHARGED
 
 func lunge(_delta):
-	pass
+	if(!canAttack):
+		return false
+	canAttack = false
+	return true
 
 func withdraw(_delta):
-	pass
+	speed = -walk
+	targetLoc = spottedLoc
 
 #UTILITIES
 

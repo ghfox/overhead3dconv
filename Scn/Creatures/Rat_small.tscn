@@ -111,9 +111,11 @@ material/0 = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.717103, 0.589, 0 )
 shape = SubResource( 1 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Pulse" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="Shottimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 4 )
@@ -122,4 +124,6 @@ anims/Idle = SubResource( 5 )
 anims/Run = SubResource( 7 )
 anims/Walk = SubResource( 6 )
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Pulse" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Shottimer" to="." method="_on_Shottimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

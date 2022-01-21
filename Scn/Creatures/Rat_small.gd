@@ -9,10 +9,11 @@ func _ready():
 	idle = funcref(self,'meander')
 	alerted = funcref(self,'pursue')
 	spotted = funcref(self,'charge')
-	charged = funcref(self,'withdraw')
+	charged = funcref(self,'lunge')
 	health = 4
 	walk = 3
-	run = 7
+	run = 14
+	proximity = 6
 	nav = get_node("../../Navigation")
 	pulse()
 	anims.play("Idle")
@@ -22,10 +23,12 @@ func _process(delta):
 	._process(delta)
 	if(!isAlive):
 		return
+	if(!canAttack):
+		return
 	if(speed == walk):
 		if(anims.current_animation != "Walk"):
 			anims.play("Walk")
-	if(speed == run):
+	if(speed > walk):
 		if(anims.current_animation != "Run"):
 			anims.play("Run")
 	#this will need to change when attacks are added but works for now
@@ -35,8 +38,10 @@ func _process(delta):
 func pulse():
 	if(!isAlive):
 		return
+	$Pulse.start(3+(randi()%5))
 	randomLoc = to_global(Vector3(10-randi()%20,0,10-randi()%20))
-	$Timer.start(3+(randi()%5))
+	charged = funcref(self,'lunge')
+	blockSpotted = false
 	if(isAlerted() && sniff_path.size()==0):
 		sniff_loc = spottedChar.translation
 		sniff_path_idx = 0
@@ -44,6 +49,8 @@ func pulse():
 		alertLoc = null
 
 func hasLostSight(space_state):
+	blockSpotted = false
+	charged = funcref(self,'lunge')
 	if(path == null):
 		alerted = funcref(self,'pursue')
 		sniff_loc = null
@@ -66,4 +73,21 @@ func death():
 		return
 	anims.play("Death")
 	isAlive = false
+	$CollisionRat.disabled = true
 
+func lunge(_delta):
+	if(!.lunge(_delta)):
+		return
+	anims.play("Attack")
+	$Shottimer.start(3.0)
+
+func _on_Shottimer_timeout():
+	canAttack = true
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if(anim_name == "Attack"  && isAlive):
+		if(isSpotted()):
+			if(isCharged(spottedLoc)):
+				charged = funcref(self,'withdraw')
+				blockSpotted = true
+				$Pulse.start(0.5 + randf())
