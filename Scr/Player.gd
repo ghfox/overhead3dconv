@@ -62,6 +62,7 @@ func spawnBullet(hand):
 	newBullet.translation = translation + (Vector3(cos(rotation.y), 0, -sin(rotation.y)) * 1)
 	newBullet.DIR = rotation.y
 	newBullet.DAM = hand.dam
+	newBullet.PEN = hand.pen
 	newBullet.SPEED = hand.muzzle
 	get_parent().add_child_below_node(self,newBullet)
 

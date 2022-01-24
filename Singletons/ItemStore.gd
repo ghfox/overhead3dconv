@@ -57,21 +57,21 @@ var b = {
 	"9mm" : {
 		"fmj" : {
 			s_dam : 1,
-			s_pen : 40,
+			s_pen : 3,
 			s_spd : 0,
 			s_sprite : "9mmfmjbox.png",
 			s_normal : "boxNormal.png"
 		}, 
 		"hp" : {
 			s_dam : 45,
-			s_pen : 20,
+			s_pen : 2,
 			s_spd : 0,
 			
 			s_normal : "boxNormal.png"
 		},
 		 "fluted" : {
 			s_dam : 35,
-			s_pen : 30,
+			s_pen : 4,
 			s_spd : 0,
 			
 			s_normal : "boxNormal.png"

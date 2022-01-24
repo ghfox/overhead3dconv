@@ -1,7 +1,8 @@
 extends KinematicBody
 
 var SPEED = 10
-var DAM = 100
+var DAM = 10.0
+var PEN = 1.0
 var DIR = 360
 var LIFESPAN = 0.5
 var velocity = Vector3(0,0,0)
@@ -21,7 +22,8 @@ func _physics_process(delta):
 		if(event.collider.is_in_group("BulletStops")):
 			delme()
 		if(event.collider.is_in_group("Enemies")):
-			event.collider.hit(DAM)
+			var damage = DAM * clamp((PEN / event.collider.armor),0.0,1.0)
+			event.collider.hit(damage)
 			delme()
 
 func delme():

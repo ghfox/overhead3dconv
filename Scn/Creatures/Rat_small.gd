@@ -13,6 +13,7 @@ func _ready():
 	health = 4
 	walk = 3
 	run = 14
+	armor = 1
 	proximity = 6
 	nav = get_node("../../Navigation")
 	pulse()

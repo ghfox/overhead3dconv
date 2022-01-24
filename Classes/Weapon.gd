@@ -12,6 +12,7 @@ var cat
 var cal
 var cooldown
 var dam
+var pen
 var topoff
 var muzzle
 
@@ -26,12 +27,14 @@ func baseStats():
 	cal = tDict["cal"]
 	cooldown = tDict["cooldown"]
 	dam = tDict["dam"]
+	pen = 0
 	muzzle = tDict["spd"]
 
 func baseAmmo():
 	baseStats()
 	var tDict = ItemStore.b[cal][curMag.subtype]
 	dam += tDict["dam"]
+	pen += tDict["pen"]
 	muzzle += tDict["spd"]
 
 func fire():
