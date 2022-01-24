@@ -17,7 +17,8 @@ var spottedLoc = null		#Loc of spotted
 var randomLoc = null		#for meandering, fleeing, etc
 
 #state info used for actions
-var spottedChar = null		#presently visible and last seen character
+var spottedChar = null		#presently visible
+var lastSpotted = null		#last/present spotted
 var wasCharged = false		#Charged flag
 var isAlive = true
 var speed = 0
@@ -86,14 +87,18 @@ func look(space_state):
 					current = dude
 					closest = tempDist
 	if(current != null):
+		var freshSpot = (spottedChar == null)
 		spottedChar = current
+		lastSpotted = spottedChar
 		spottedLoc = current.translation
 		alertLoc = spottedLoc
 		path = null
-		hasInSight(space_state)
+		hasInSight(space_state,freshSpot)
 	else:
-		spottedLoc = null
+		
 		hasLostSight(space_state)
+		spottedLoc = null
+		spottedChar = null
 
 func pulse():
 	pass
@@ -105,7 +110,7 @@ func reachedEndOfAlertedPath(_delta):
 func hasLostSight(space_state):
 	pass
 
-func hasInSight(space_state):
+func hasInSight(space_state, freshSpot):
 	pass
 #STATE CHECKS
 

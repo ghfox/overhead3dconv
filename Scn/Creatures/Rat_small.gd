@@ -43,7 +43,7 @@ func pulse():
 	charged = funcref(self,'lunge')
 	blockSpotted = false
 	if(isAlerted() && sniff_path.size()==0):
-		sniff_loc = spottedChar.translation
+		sniff_loc = lastSpotted.translation
 		sniff_path_idx = 0
 	if (isAlerted() && sniff_path.size() > 0 && sniff_path_idx == sniff_path.size()):
 		alertLoc = null
