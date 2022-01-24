@@ -56,22 +56,22 @@ func getAmmoNormal(cal,subtype):
 var b = {
 	"9mm" : {
 		"fmj" : {
-			s_dam : 1,
-			s_pen : 3,
+			s_dam : 5.0,
+			s_pen : 3.0,
 			s_spd : 0,
 			s_sprite : "9mmfmjbox.png",
 			s_normal : "boxNormal.png"
 		}, 
 		"hp" : {
-			s_dam : 45,
-			s_pen : 2,
+			s_dam : 9.0,
+			s_pen : 2.0,
 			s_spd : 0,
 			
 			s_normal : "boxNormal.png"
 		},
 		 "fluted" : {
-			s_dam : 35,
-			s_pen : 4,
+			s_dam : 7.0,
+			s_pen : 4.0,
 			s_spd : 0,
 			
 			s_normal : "boxNormal.png"

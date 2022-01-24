@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scn/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scn/Wall.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scn/BlinkingLight.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/metal_plate_diff_1k.jpg" type="Texture" id=6]
 [ext_resource path="res://Textures/metal_plate_nor_gl_1k.jpg" type="Texture" id=7]
+[ext_resource path="res://Scn/Creatures/Rat_Large.tscn" type="PackedScene" id=8]
 
 [sub_resource type="QuadMesh" id=1]
 
@@ -122,14 +123,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5179, 0, 27.511 )
 [node name="Rat_Small7" parent="NPC" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5179, 0, 32.7138 )
 
-[node name="Rat_Small4" parent="NPC" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3055, 0, 27.511 )
+[node name="Rat_Large" parent="NPC" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.2658 )
 
-[node name="Rat_Small5" parent="NPC" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3055, 0, 31.999 )
-
-[node name="Rat_Small6" parent="NPC" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3055, 0, 36.9148 )
+[node name="Rat_Large2" parent="NPC" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3198, 0, 32.4686 )
 
 [node name="Navigation" type="Navigation" parent="."]
 visible = false

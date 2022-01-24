@@ -13,8 +13,8 @@ func _ready():
 	health = 10.0
 	walk = 3
 	run = 14
-	armor = 1.0
-	proximity = 6
+	armor = 4.0
+	proximity = 8
 	nav = get_node("../../Navigation")
 	pulse()
 	anims.play("Idle")

@@ -131,6 +131,7 @@ func isCharged(loc):
 
 func hit(dam):
 	health -= dam
+	print(health)
 	if(health <= 0):
 		death()
 
