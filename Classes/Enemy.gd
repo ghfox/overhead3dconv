@@ -131,13 +131,19 @@ func isCharged(loc):
 
 func hit(dam):
 	health -= dam
-	print(health)
 	if(health <= 0):
 		death()
 
 func death():
 	isAlive = false
 	rotation.x = PI/2
+
+#By default this will alert to the originating object
+func heardSound(loc, origin):
+	alertLoc = loc
+	lastSpotted = origin
+	path = null
+
 
 #IDLE
 

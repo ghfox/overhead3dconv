@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scn/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scn/Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scn/Creatures/Rat_small.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Audio/gunshot1.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scn/AlertSoundArea.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scn/BlinkingLight.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/metal_plate_diff_1k.jpg" type="Texture" id=6]
 [ext_resource path="res://Textures/metal_plate_nor_gl_1k.jpg" type="Texture" id=7]
@@ -32,10 +32,6 @@ agent/radius = 2.5
 
 [sub_resource type="Environment" id=4]
 ambient_light_color = Color( 0.443137, 0.443137, 0.443137, 1 )
-
-[sub_resource type="CylinderShape" id=6]
-radius = 9.62581
-height = 14.9558
 
 [node name="Room" type="Spatial"]
 
@@ -140,14 +136,5 @@ environment = SubResource( 4 )
 
 [node name="LayerUnMod" type="CanvasLayer" parent="."]
 
-[node name="Area" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.40779, 0, -18.0442 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.09707, 0 )
-shape = SubResource( 6 )
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Area"]
-stream = ExtResource( 4 )
-unit_size = 35.0
-autoplay = true
+[node name="Area" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.4946, 0, -1.94916 )
