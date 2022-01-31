@@ -1,5 +1,7 @@
 extends Node
 
+var AlertSoundArea = preload("res://Scn/AlertSoundArea.tscn")
+
 #this is adapted from kidscancode.org's Audio Manager
 #which in turn was adapted from SFXPlayer by TheDuriel
 
@@ -25,8 +27,14 @@ func _on_stream_finished(stream):
 	# When finished playing a stream, make the player available again.
 	available.append(stream)
 
-func play(sound_path):
-	queue.append(sound_path)
+
+#this all needs to be refactored
+func play(snd, loc, org, radius):
+	#queue.append(sound_path)
+	var newSound = AlertSoundArea.instance()
+	newSound.init(snd, loc, org, radius)
+	Inventory.player.get_parent().add_child(newSound)
+	
 
 func _process(_delta):
 	# Play a queued sound if any players are available.
