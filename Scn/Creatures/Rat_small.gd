@@ -15,9 +15,11 @@ func _ready():
 	run = 14
 	armor = 1.0
 	proximity = 6
+	seperation = 4
 	nav = get_node("../../Navigation")
 	pulse()
 	anims.play("Idle")
+	move_lock_y = true
 	pass # Replace with function body.
 
 func _process(delta):
@@ -43,7 +45,7 @@ func pulse():
 	randomLoc = to_global(Vector3(10-randi()%20,0,10-randi()%20))
 	charged = funcref(self,'lunge')
 	blockSpotted = false
-	if(isAlerted() && sniff_path.size()==0):
+	if(isAlerted() && sniff_path.size()==0 && lastSpotted != null):
 		sniff_loc = lastSpotted.translation
 		sniff_path_idx = 0
 	if (isAlerted() && sniff_path.size() > 0 && sniff_path_idx == sniff_path.size()):

@@ -12,6 +12,9 @@ var circleDist = 3			#Dist to circle at
 var maxCircleDist = 5		#Maximum distance while circling
 var proximity = 3			#Dist to trigger charged
 
+#flocking
+var seperation = 3
+
 #location storage, we determine state with these
 var alertLoc = null			#Loc of most recent alert
 var spottedLoc = null		#Loc of spotted
@@ -40,6 +43,9 @@ var path_idx = 0
 
 var sniff_path = []
 var sniff_path_idx = 0
+
+#memory reuse
+var curCollision
 
 #Alerts, spots, and being attacked forces state options
 
@@ -71,7 +77,29 @@ func _physics_process(delta):
 	if(targetLoc != null):
 		turnTowards(targetLoc,PI/2 * delta)
 		if(targetLoc.distance_to(translation) > 1):
-			move_and_collide(transform.basis.x * speed * delta)
+			checkNeighbours(delta)
+			curCollision = move_and_collide(transform.basis.x * speed * delta)
+			if(curCollision != null):
+				if(isAlerted() || isSpotted()):
+					if(curCollision.collider.is_in_group("Enemies")):
+						if(!curCollision.collider.isAlerted() && !curCollision.collider.isSpotted() ):
+							curCollision.collider.heardSound(targetLoc,lastSpotted)
+				
+
+func checkNeighbours(_delta):
+	var i = 0
+	var sum = Vector3(0,0,0)
+	for e in get_tree().get_nodes_in_group("Enemies"):
+		if(e != self):
+			var d = translation.distance_to(e.translation)
+			if(d < seperation):
+				var diffVec = translation - e.translation
+				diffVec = diffVec.normalized()
+				i += 1
+				sum += diffVec/d
+	if(i > 0):
+		var res = sum/i
+		turnTowards(translation + res.normalized(),PI/2*_delta)
 
 #must be invoked by physics thread
 #Adds the nearest ETarget that enemy has a 180 degree line of sight on

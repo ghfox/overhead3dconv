@@ -12,8 +12,9 @@ normal_scale = 1.0
 normal_texture = ExtResource( 2 )
 uv1_scale = Vector3( 1, 2, 1 )
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 3.05744, 1.31851, 1.25552 )
+[sub_resource type="CapsuleShape" id=8]
+radius = 1.67048
+height = 2.57526
 
 [sub_resource type="Animation" id=4]
 resource_name = "Attack"
@@ -108,8 +109,8 @@ mesh = ExtResource( 1 )
 material/0 = SubResource( 2 )
 
 [node name="CollisionRat" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.793649, 1.42472, 0 )
-shape = SubResource( 1 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.793649, 1.42472, 0 )
+shape = SubResource( 8 )
 
 [node name="Pulse" type="Timer" parent="."]
 wait_time = 5.0

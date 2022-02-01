@@ -11,10 +11,10 @@ func _ready():
 	rotate_y(DIR)
 	$Timer.start(LIFESPAN)
 	if(randi() % 2 == 1):
-		AudioManager.play(AudioManager.gunshot1, translation, Inventory.player, 15)
+		AudioManager.playASA(AudioManager.gunshot1, translation, Inventory.player, 15)
 		pass
 	else:
-		AudioManager.play(AudioManager.gunshot2, translation, Inventory.player, 15)
+		AudioManager.playASA(AudioManager.gunshot2, translation, Inventory.player, 15)
 		pass
 
 

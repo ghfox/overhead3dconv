@@ -2,47 +2,15 @@ extends Node
 
 var AlertSoundArea = preload("res://Scn/AlertSoundArea.tscn")
 
-#this is adapted from kidscancode.org's Audio Manager
-#which in turn was adapted from SFXPlayer by TheDuriel
-
 var gunshot1 = "res://Audio/gunshot1.wav"
 var gunshot2 = "res://Audio/gunshot2.wav"
 
-var num_players = 8
-var bus = "master"
-
-var available = []  # The available players.
-var queue = []  # The queue of sounds to play.
-
-func _ready():
-	# Create the pool of AudioStreamPlayer nodes.
-	for i in num_players:
-		var p = AudioStreamPlayer.new()
-		add_child(p)
-		available.append(p)
-		p.connect("finished", self, "_on_stream_finished", [p])
-		p.bus = bus
-
-func _on_stream_finished(stream):
-	# When finished playing a stream, make the player available again.
-	available.append(stream)
-
-
-#this all needs to be refactored
-func play(snd, loc, org, radius):
-	#queue.append(sound_path)
+func playASA(snd, loc, org, radius):
 	var newSound = AlertSoundArea.instance()
 	newSound.init(snd, loc, org, radius)
 	Inventory.player.get_parent().add_child(newSound)
 	
 
-func _process(_delta):
-	# Play a queued sound if any players are available.
-	if not queue.empty() and not available.empty():
-		available[0].stream = load(queue.pop_front())
-		available[0].play()
-		available.pop_front()
-
 func repitch():
-	for i in get_children():
+	for i in get_tree().get_nodes_in_group("SFX"):
 		i.set_pitch_scale(Engine.time_scale)

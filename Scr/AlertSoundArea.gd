@@ -14,6 +14,7 @@ func init(snd, loc, org, rad):
 func _ready():
 	translation = location
 	$AudioStreamPlayer3D.stream = load(sound)
+	$AudioStreamPlayer3D.set_pitch_scale(Engine.time_scale)
 	$CollisionShape.scale = Vector3(radius, 1, radius)
 
 
