@@ -45,9 +45,6 @@ var sniffPath = []
 var sniffPath_idx = 0
 var sniffLoc = null
 
-#memory reuse
-var curCollision
-
 #Alerts, spots, and being attacked forces state options
 
 func _process(delta):
@@ -79,13 +76,14 @@ func _physics_process(delta):
 		turnTowards(targetLoc,PI/2 * delta)
 		if(targetLoc.distance_to(translation) > 1):
 			checkNeighbours(delta)
-			curCollision = move_and_collide(transform.basis.x * speed * delta)
-			if(curCollision != null):
+			checkCollision(move_and_collide(transform.basis.x * speed * delta))
+
+func checkCollision(curCollision):
+	if(curCollision != null):
 				if(isAlerted() || isSpotted()):
 					if(curCollision.collider.is_in_group("Enemies")):
 						if(!curCollision.collider.isAlerted() && !curCollision.collider.isSpotted() ):
-							curCollision.collider.heardSound(targetLoc,lastSpotted)
-				
+							curCollision.collider.setAlert(targetLoc,lastSpotted)
 
 func checkNeighbours(_delta):
 	var i = 0
