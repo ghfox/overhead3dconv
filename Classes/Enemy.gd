@@ -38,11 +38,12 @@ var spotted = funcref(self,'charge')
 var charged = funcref(self,'withdraw')
 
 var nav
-var path = []
-var path_idx = 0
+var alertPath = []
+var alertPath_idx = 0
 
-var sniff_path = []
-var sniff_path_idx = 0
+var sniffPath = []
+var sniffPath_idx = 0
+var sniffLoc = null
 
 #memory reuse
 var curCollision
@@ -60,9 +61,9 @@ func _process(delta):
 			spotted.call_funcv([delta])
 		return
 	if isAlerted():
-		if(path == null):
-			path_idx = 0
-			path = nav.get_simple_path(translation, alertLoc)
+		if(alertPath == null):
+			alertPath_idx = 0
+			alertPath = nav.get_simple_path(translation, alertLoc)
 		alerted.call_funcv([delta])
 		return
 	if isIdle():
@@ -118,10 +119,8 @@ func look(space_state):
 	if(current != null):
 		var freshSpot = (spottedChar == null)
 		spottedChar = current
-		lastSpotted = spottedChar
 		spottedLoc = current.translation
-		alertLoc = spottedLoc
-		path = null
+		setAlert(spottedLoc,spottedChar)
 		hasInSight(space_state,freshSpot)
 	else:
 		
@@ -168,10 +167,17 @@ func death():
 
 #By default this will alert to the originating object
 func heardSound(loc, origin):
+	setAlert(loc, origin)
+
+func setAlert(loc , origin):
 	alertLoc = loc
 	lastSpotted = origin
-	path = null
+	alertPath = null	
 
+func clearSniff():
+	sniffLoc = null
+	sniffPath = []
+	sniffPath_idx = 0
 
 #IDLE
 
@@ -191,12 +197,12 @@ func patrol(_delta):
 #ALERTED
 
 func pursue(_delta):
-	if(path_idx < path.size() && translation.distance_to(path[path_idx]) < 5):
-		path_idx += 1
-		if(path_idx == path.size()):
+	if(alertPath_idx < alertPath.size() && translation.distance_to(alertPath[alertPath_idx]) < 5):
+		alertPath_idx += 1
+		if(alertPath_idx == alertPath.size()):
 			targetLoc = alertLoc
 		else:
-			targetLoc = path[path_idx]
+			targetLoc = alertPath[alertPath_idx]
 	elif (translation.distance_to(alertLoc) < 5):
 			speed = 0
 			reachedEndOfAlertedPath(_delta)
@@ -209,16 +215,17 @@ func approach(_delta):
 
 # this is basically approach, but the path must be set by the personality
 func sniff(_delta):
-	if(sniff_path_idx == 0):
-		targetLoc = sniff_path[0]
-	if(sniff_path_idx < sniff_path.size()-1 && translation.distance_to(sniff_path[sniff_path_idx]) < walk):
-		sniff_path_idx += 1
-		targetLoc = sniff_path[sniff_path_idx]
-	elif (translation.distance_to(sniff_path[sniff_path.size()-1]) < 5):
-			sniff_path_idx = sniff_path.size()
+	if(sniffPath_idx == 0):
+		targetLoc = sniffPath[0]
+	if(sniffPath_idx < sniffPath.size()-1 && translation.distance_to(sniffPath[sniffPath_idx]) < walk):
+		sniffPath_idx += 1
+		targetLoc = sniffPath[sniffPath_idx]
+	elif (translation.distance_to(sniffPath[sniffPath.size()-1]) < 5):
+			sniffPath_idx = sniffPath.size()
 			speed = 0
 			return
 	speed = walk*2
+
 
 func flee(_delta):
 	pass
