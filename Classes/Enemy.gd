@@ -41,6 +41,9 @@ var nav
 var alertPath = []
 var alertPath_idx = 0
 
+var spotPath = []
+var spot_idx = 0
+
 var sniffPath = []
 var sniffPath_idx = 0
 var sniffLoc = null
@@ -80,10 +83,10 @@ func _physics_process(delta):
 
 func checkCollision(curCollision):
 	if(curCollision != null):
-				if(isAlerted() || isSpotted()):
-					if(curCollision.collider.is_in_group("Enemies")):
-						if(!curCollision.collider.isAlerted() && !curCollision.collider.isSpotted() ):
-							curCollision.collider.setAlert(targetLoc,lastSpotted)
+		if(isAlerted() || isSpotted()):
+			if(curCollision.collider.is_in_group("Enemies")):
+				if(!curCollision.collider.isAlerted() && !curCollision.collider.isSpotted() ):
+					curCollision.collider.setAlert(targetLoc,lastSpotted)
 
 func checkNeighbours(_delta):
 	var i = 0
@@ -116,9 +119,12 @@ func look(space_state):
 					closest = tempDist
 	if(current != null):
 		var freshSpot = (spottedChar == null)
-		spottedChar = current
-		spottedLoc = current.translation
+		setSpot(current.translation, current)
 		setAlert(spottedLoc,spottedChar)
+		if(freshSpot):
+			spot_idx = 0
+			spotPath = nav.get_simple_path(translation, spottedLoc)
+			targetLoc = spotPath[spot_idx]
 		hasInSight(space_state,freshSpot)
 	else:
 		
@@ -170,7 +176,11 @@ func heardSound(loc, origin):
 func setAlert(loc , origin):
 	alertLoc = loc
 	lastSpotted = origin
-	alertPath = null	
+	alertPath = null
+
+func setSpot(loc, origin):
+	spottedLoc = loc
+	spottedChar = origin
 
 func clearSniff():
 	sniffLoc = null
@@ -196,11 +206,7 @@ func patrol(_delta):
 
 func pursue(_delta):
 	if(alertPath_idx < alertPath.size() && translation.distance_to(alertPath[alertPath_idx]) < 5):
-		alertPath_idx += 1
-		if(alertPath_idx == alertPath.size()):
-			targetLoc = alertLoc
-		else:
-			targetLoc = alertPath[alertPath_idx]
+		alertPath_idx = stepPath(alertPath, alertPath_idx, alertLoc)
 	elif (translation.distance_to(alertLoc) < 5):
 			speed = 0
 			reachedEndOfAlertedPath(_delta)
@@ -231,8 +237,14 @@ func flee(_delta):
 #SPOTTED
 
 func charge(_delta):
+	#if our last step in the path has drifted to far from the target replan
+	if(spottedChar.translation.distance_to(spotPath[spotPath.size()-1]) > 5):
+		spotPath = nav.get_simple_path(translation,spottedLoc)
+		spot_idx = 0
+		targetLoc = spotPath[spot_idx]
+	if(spot_idx < spotPath.size() && translation.distance_to(spotPath[spot_idx]) < 5):
+		spot_idx = stepPath(spotPath, spot_idx, spottedLoc)
 	speed = run
-	targetLoc = spottedLoc
 
 func maintain(_delta):
 	speed = 0
@@ -258,6 +270,14 @@ func withdraw(_delta):
 	targetLoc = spottedLoc
 
 #UTILITIES
+
+func stepPath(path, pathIdx, finDest):
+	pathIdx += 1
+	if(pathIdx == path.size()):
+		targetLoc = finDest
+	else:
+		targetLoc = path[pathIdx]
+	return pathIdx
 
 func turnTowards(targetVec, delta):
 	var final = (targetVec - translation)
