@@ -15,7 +15,7 @@ albedo_color = Color( 1, 0.160784, 0.160784, 1 )
 radius = 1.01047
 height = 2.50592
 
-[node name="Node2D" type="KinematicBody" groups=["ETargets"]]
+[node name="Node2D" type="KinematicBody" groups=["Player"]]
 script = ExtResource( 3 )
 
 [node name="Detector" type="Area" parent="."]

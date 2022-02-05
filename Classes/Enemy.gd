@@ -12,6 +12,10 @@ var circleDist = 3			#Dist to circle at
 var maxCircleDist = 5		#Maximum distance while circling
 var proximity = 3			#Dist to trigger charged
 
+#Groups and things, must be set in child
+var targets = []
+var friends = []
+
 #flocking
 var seperation = 3
 
@@ -84,14 +88,14 @@ func _physics_process(delta):
 func checkCollision(curCollision):
 	if(curCollision != null):
 		if(isAlerted() || isSpotted()):
-			if(curCollision.collider.is_in_group("Enemies")):
+			if(friends.find(curCollision.collider) > -1):
 				if(!curCollision.collider.isAlerted() && !curCollision.collider.isSpotted() ):
 					curCollision.collider.setAlert(targetLoc,lastSpotted)
 
 func checkNeighbours(_delta):
 	var i = 0
 	var sum = Vector3(0,0,0)
-	for e in get_tree().get_nodes_in_group("Enemies"):
+	for e in friends:
 		if(e != self):
 			var d = translation.distance_to(e.translation)
 			if(d < seperation):
@@ -109,7 +113,7 @@ func look(space_state):
 	var closest = 99999
 	var current = null
 	var tempDist
-	for dude in get_tree().get_nodes_in_group("ETargets"):
+	for dude in targets:
 		var ray = space_state.intersect_ray(translation,dude.translation,[self])
 		if(ray.collider_id == dude.get_instance_id()):
 			tempDist = translation.distance_to(dude.translation)

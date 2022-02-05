@@ -98,7 +98,7 @@ tracks/0/keys = {
 "values": [ Transform( 0.088, 0, 0.995, 0, 1, 0, -0.996, 0, 0.1, 1.127, 1, 0 ), Transform( -0.088, 0, 0.995, 0, 1, 0, -0.996, 0, -0.1, 1.127, 1, 0 ), Transform( 0.088, 0, 0.995, 0, 1, 0, -0.996, 0, 0.1, 1.127, 1, 0 ) ]
 }
 
-[node name="Rat_Large" type="KinematicBody" groups=["Enemies"]]
+[node name="Rat_Large" type="KinematicBody" groups=["Rats"]]
 collision_layer = 4
 collision_mask = 30
 script = ExtResource( 4 )
