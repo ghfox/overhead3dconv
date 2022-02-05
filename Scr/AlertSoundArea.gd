@@ -23,6 +23,6 @@ func _on_AudioStreamPlayer3D_finished():
 	call_deferred("free")
 
 func _on_Area_body_entered(body):
-	if(body.is_in_group("Enemies")):
+	if(body.is_in_group("Hearables")):
 		body.heardSound(translation, origin)
 	pass # Replace with function body.

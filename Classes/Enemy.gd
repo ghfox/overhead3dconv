@@ -56,6 +56,7 @@ var sniffLoc = null
 
 func _ready():
 	add_to_group("Shootables")
+	add_to_group("Hearables")
 
 func _process(delta):
 	if(!isAlive):
