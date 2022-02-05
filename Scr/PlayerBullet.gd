@@ -23,7 +23,7 @@ func _physics_process(delta):
 	if(event != null):
 		if(event.collider.is_in_group("BulletStops")):
 			delme()
-		if(event.collider.is_in_group("Enemies")):
+		if(event.collider.is_in_group("Shootables")):
 			var damage = DAM * clamp((PEN / event.collider.armor),0.0,1.0)
 			event.collider.hit(damage)
 			delme()

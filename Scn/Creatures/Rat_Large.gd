@@ -3,6 +3,7 @@ extends Enemy
 var anims
 
 func _ready():
+	._ready()
 	targets = get_tree().get_nodes_in_group("Player")
 	friends = get_tree().get_nodes_in_group("Rats")
 	anims =$AnimationPlayer

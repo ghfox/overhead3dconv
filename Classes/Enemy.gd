@@ -54,6 +54,9 @@ var sniffLoc = null
 
 #Alerts, spots, and being attacked forces state options
 
+func _ready():
+	add_to_group("Shootables")
+
 func _process(delta):
 	if(!isAlive):
 		return
