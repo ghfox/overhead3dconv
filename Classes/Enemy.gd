@@ -151,7 +151,25 @@ func hasLostSight(space_state):
 	pass
 
 func hasInSight(space_state, freshSpot):
-	pass
+		signalOthers(space_state,20)
+
+#Notify friendlies that can see me of an enemy position
+func signalOthers(space_state, distance_limit):
+	for f in friends:
+		if(!f.isAlive):
+			continue
+		if(f.isSpotted()):
+			continue
+		if(translation.distance_to(f.translation) > distance_limit):
+			continue
+		if(Vector3(1,0,0).dot(f.to_local(translation)) > 0):
+			if(f.isAlerted()):
+				if(f.alertLoc.distance_to(spottedLoc) < 5):
+					continue
+			var ray = space_state.intersect_ray(translation,f.translation,[self])
+			if(ray.collider_id == f.get_instance_id()):
+				f.setAlert(spottedLoc, spottedChar)
+
 #STATE CHECKS
 
 func isIdle():
