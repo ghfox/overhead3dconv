@@ -94,7 +94,7 @@ func checkCollision(curCollision):
 		if(isAlerted() || isSpotted()):
 			if(friends.find(curCollision.collider) > -1):
 				if(!curCollision.collider.isAlerted() && !curCollision.collider.isSpotted() ):
-					curCollision.collider.setAlert(targetLoc,lastSpotted)
+					curCollision.collider.setAlert(alertLoc,lastSpotted)
 
 func checkNeighbours(_delta):
 	var i = 0
