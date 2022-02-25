@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Models/Guns/AdvancedHandgun.glb" type="PackedScene" id=1]
+
+[node name="EVA" instance=ExtResource( 1 )]
+transform = Transform( -2.18557e-07, 5, 2.18557e-07, 0, -2.18557e-07, 5, 5, 2.18557e-07, 9.55343e-15, 0, 0, 0 )
