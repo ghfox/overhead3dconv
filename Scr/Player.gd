@@ -53,7 +53,8 @@ func attack():
 				if(hand.fire()):
 					spawnBullet(hand)
 		print(Inventory.pack)
-		print(Inventory.pocket)
+		print(Inventory.mags)
+		print(Inventory.magsCursor)
 		print(Inventory.hand)
 
 func spawnBullet(hand):
@@ -103,7 +104,7 @@ func reload():
 	if(reloading):
 		reloader.skip()
 	else:
-		if(Inventory.findNextMag()):
+		if(Inventory.magsCursor >= 0):
 			reloading = true
 			reloader = reloadAnim.instance()
 			get_parent().get_node("LayerUnMod").add_child(reloader)

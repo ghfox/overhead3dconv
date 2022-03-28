@@ -6,7 +6,14 @@ var hand = Nothing.new()
 var player
 var selectedPocket = 0
 
-var reloadCursor = -1
+#arrays for pockets
+var weapons	= []
+var mags = []
+var items = []
+
+var magsCursor = -1
+var weaponsCursor = -1
+var itemsCursor = -1
 
 #remember all built-in types are passed as value, EXCEPT arrays & dicts
 
@@ -25,15 +32,12 @@ func _ready():
 	moveToPocketFromPack(pack["mag"][0],1)
 	equip(pack["weapon"],0)
 	
-func nextPocket():
-	selectedPocket += 1
-	if(selectedPocket == pocket.size()):
-		selectedPocket = 0
 
 func equip(group, idx):
 	hand = group[idx]
 	group.remove(idx)
-	reloadCursor = -1
+	magsCursor = 0
+	buildMagList(hand.cal)
 
 func addToPack(item):
 	pack[item.type].push_back(item)
@@ -59,25 +63,38 @@ func findEmptyPocket():
 
 
 #														MAGAZINE RELATED Methods
+func buildMagList(cal):
+	mags = []
+	for p in pocket.size():
+		if (pocket[p].type == "mag"):
+			if(pocket[p].cal == cal):
+				if(pocket[p].store > 0):
+					mags.append(p)
+	if(mags.size() == 0):
+		magsCursor = -1
+
+func changeMag(keepMag):
+	if(keepMag):
+		swapForNextMag()
+		magsCursor += 1	#advance the cursor
+	else:
+		loadNextMag()	#cursor won't advance since we are disposing of inventory
+	findNextMag()
+
 func swapForNextMag():
 	var temp = hand.curMag
 	loadNextMag()
-	moveToPocket(temp,reloadCursor)
+	moveToPocket(temp,mags[magsCursor])
 
 func loadNextMag():
-	return loadFromPocket(hand,reloadCursor)
+	return loadFromPocket(hand,mags[magsCursor])
 
 func findNextMag():
-	for i in pocket.size():
-		reloadCursor += 1
-		if(reloadCursor == pocket.size()):
-			reloadCursor = 0
-		var p = pocket[reloadCursor]
-		if(p.type == "mag"):
-			if(p.cal == hand.cal):
-				if(p.store > 0):
-					return true
-	return false
+	if(magsCursor >= mags.size()):	#if we're outside the list before rebuild wrap
+		magsCursor = 0
+	buildMagList(hand.cal)
+	if(magsCursor > mags.size()):	#if 0 mags, cursor will be -1
+		magsCursor = mags.size()
 
 func loadFromPocket(weapon, pockIdx):
 	var obj = pocket[pockIdx]

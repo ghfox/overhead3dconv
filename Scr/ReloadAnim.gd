@@ -45,10 +45,7 @@ func _process(_delta):
 		reload()
 
 func reload():
-	if(swap):
-		Inventory.swapForNextMag()
-	else:
-		Inventory.loadNextMag()
+	Inventory.changeMag(swap)
 	Inventory.player.reloading = false
 	Inventory.player.HUD.updatePocketGrid()
 	call_deferred("free")
